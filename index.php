@@ -5,7 +5,8 @@
  * serao contruidos aqui para serem utilizados ao longo da requisicao
  * E responsavel tambem por carregar o front-controller da aplicacao
  * E por consequencia tambem carrega o controller requisitado
- * @author    Andre Gustavo Espeiorin <andre.gustavo@drimio.com>
+ * @author    Andre Gustavo Espeiorin <xorna@coderockr.com>
+ * @author    Elton Luís Minetto <eminetto@coderockr.com>
  * @version    1.0
 */
 
@@ -173,6 +174,11 @@ Zend_Registry::set('session', new Zend_Session_Namespace());
  * Essa chamada inicia o Mvc do Zend, fazendo que seja carregado o default.phtml
  */
 Zend_Layout::startMvc(array('layout' => 'default', 'layoutPath' => VIEWS_PATH . 'layouts' . BAR));
+
+/* 
+ * Registra variável de ambiente
+ */
+Zend_Registry::set('env',$env);
 
 
 /**
