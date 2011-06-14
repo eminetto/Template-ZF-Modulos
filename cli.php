@@ -156,7 +156,7 @@ try {
     $opts = new Zend_Console_Getopt(
 		array(
 			'help|h' => 'Displays usage information.',
-			'action|a=s' => 'Action to perform in format of module.controller.action',
+			'action|a=s' => 'Action to perform in format of module/controller/action/param/value',
 			'verbose|v' => 'Verbose messages will be dumped to the default output.',
 			'environment|e' => 'Environment. Default production',
 			)
@@ -173,14 +173,23 @@ if(isset($opts->h)) {
 }
 //monta a requisição
 if(isset($opts->a)) {
-	$reqRoute = array_reverse(explode('.',$opts->a));
-	list($action,$controller,$module) = $reqRoute;
+	//separa os componentes
+	$reqRoute = explode('/',$opts->a);
+	$module = array_shift($reqRoute);
+	$controller = array_shift($reqRoute);
+	$action = array_shift($reqRoute);	
 	$request = new Zend_Controller_Request_Simple($action,$controller,$module);
+	//trata os parâmetros, caso existam
+	$argc = count($reqRoute);
+	for($i=0;$i<$argc;$i++) {
+		$request->setParam($reqRoute[$i],$reqRoute[++$i]);
+	}
 	$front = Zend_Controller_Front::getInstance();
     $front->setRequest($request);
 	$front->setRouter(new Coderockr_Controller_Router_Cli());
 	$front->setResponse(new Zend_Controller_Response_Cli());
 	$front->throwExceptions(true);
 	$front->addModuleDirectory(MODULE_CONTROLLER_PATH);
+	//Zend_Debug::dump($request->getParams());
     $front->dispatch();
 }
