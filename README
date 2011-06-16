@@ -29,15 +29,19 @@ Uma forma fácil de se trabalhar com projetos é configurar um VHOST em seu Apac
 NameVirtualHost *
 
 <VirtualHost *:80>
-   DocumentRoot "/Applications/MAMP/htdocs/Template-ZF-Modulos"
-   ServerName zf.local
+	DocumentRoot "/Applications/MAMP/htdocs/Template-ZF-Modulos"
+	ServerName zf.local
 	
-   SetEnv APPLICATION_ENV "development"	
+	SetEnv APPLICATION_ENV "development"	
+	SetEnv CLASS_PATH "/Applications/MAMP/htdocs/library/"
+	SetEnv BASE_URL ""	
+	SetEnv HTTP_URL "http://zf.local"	
+	SetEnv BAR "/"	
 	
-   <Directory "/Applications/MAMP/htdocs/Template-ZF-Modulos">
-       Options Indexes MultiViews FollowSymLinks
-       AllowOverride All
-       Order allow,deny
-       Allow from all
-   </Directory>
+	<Directory "/Applications/MAMP/htdocs/Template-ZF-Modulos">
+		Options Indexes MultiViews FollowSymLinks
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+	</Directory>
 </VirtualHost>
