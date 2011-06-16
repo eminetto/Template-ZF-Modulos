@@ -5,7 +5,7 @@ Esse é um template de aplicação Zend Framework usado por mim para os projetos
 
 Estrutura do projeto:
 .htaccess - arquivo com as configurações de redirect necessárias para o projeto
-config/config.ini - arquivo com as configurações do projeto como cache, banco de dados, traduções, etc
+config/production.ini - arquivo com as configurações do projeto como cache, banco de dados, traduções, etc
 data/cache - diretório para salvar cache em arquivos
 doc - documentações do projeto
 forms - diretório para os formulários do projeto, criados com Zend_Form
@@ -20,6 +20,7 @@ public/css/ - arquivos css
 public/js/ - arquivos js
 public/img/ - imagens
 
+É necessário fazer uma cópia do arquivo config/production.ini para config/development.ini e alterar os dados para sua máquina
 
 VHOST
 =====================
