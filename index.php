@@ -114,20 +114,21 @@ if(isset($config['translate'])) {
 /**
  * Cria e configura as conexoes com o banco de dados
  */
-// cria uma nova instância do objeto Zend_Config_Ini. Esta classe é de grande utilidade pois permite que sejam criados arquivos de configuração simples e eficazes.
-$Connection = Zend_Db::factory($config['db']['adapter'], 
-	array (
-		'host' => $config['db']['host'], 
-		'username' => $config['db']['username'], 
-		'password' => $config['db']['password'], 
-		'dbname' => $config['db']['dbname'], 
-		)
-	);
-
-/**
- * Setando a conexao como padrao
-*/
-Zend_Db_Table::setDefaultAdapter($Connection);
+if(isset($config['db'])) {
+	$Connection = Zend_Db::factory($config['db']['adapter'], 
+		array (
+			'host' => $config['db']['host'], 
+			'username' => $config['db']['username'], 
+			'password' => $config['db']['password'], 
+			'dbname' => $config['db']['dbname'], 
+			)
+		);
+	
+	/**
+	 * Setando a conexao como padrao
+	*/
+	Zend_Db_Table::setDefaultAdapter($Connection);
+}
 
 /**
  * Registra a variavel
@@ -154,27 +155,28 @@ Zend_Registry::set('get', $get);
 /* 
  * Cache
 */
-$frontendOptions = array(
-   'lifetime' => $config['cache']['front']['lifetime'], // tempo de vida de 2 horas
-   'automatic_serialization' => $config['cache']['front']['automatic_serialization']
-);
-$backendOptions = $config['cache']['back']['options'];
-// criando uma instancia do cache
-$cache = Zend_Cache::factory('Core',//frontend
-                             $config['cache']['back']['adapter'],  //backend
-                             $frontendOptions,
-                             $backendOptions);
-
-/*
-* Salva o cache no Registry para ser usado posteriormente
-*/
-Zend_Registry::set('cache', $cache);
-
-/*
- * cache para metadados das tabelas
-*/
-Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
-
+if(isset($config['cache'])) {
+	$frontendOptions = array(
+	   'lifetime' => $config['cache']['front']['lifetime'], // tempo de vida de 2 horas
+	   'automatic_serialization' => $config['cache']['front']['automatic_serialization']
+	);
+	$backendOptions = $config['cache']['back']['options'];
+	// criando uma instancia do cache
+	$cache = Zend_Cache::factory('Core',//frontend
+	                             $config['cache']['back']['adapter'],  //backend
+	                             $frontendOptions,
+	                             $backendOptions);
+	
+	/*
+	* Salva o cache no Registry para ser usado posteriormente
+	*/
+	Zend_Registry::set('cache', $cache);
+	
+	/*
+	 * cache para metadados das tabelas
+	*/
+	Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+}
 
 /**
  * Inicia a Sessao
