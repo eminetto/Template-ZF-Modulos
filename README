@@ -33,11 +33,11 @@ NameVirtualHost *
 	DocumentRoot "/Applications/MAMP/htdocs/Template-ZF-Modulos"
 	ServerName zf.local
 	
-	SetEnv APPLICATION_ENV "development"	
+	SetEnv APPLICATION_ENV "development"
 	SetEnv CLASS_PATH "/Applications/MAMP/htdocs/library/"
-	SetEnv BASE_URL ""	
-	SetEnv HTTP_URL "http://zf.local"	
-	SetEnv BAR "/"	
+	SetEnv BASE_URL " "
+	SetEnv HTTP_URL "http://zf.local"
+	SetEnv BAR "/"
 	
 	<Directory "/Applications/MAMP/htdocs/Template-ZF-Modulos">
 		Options Indexes MultiViews FollowSymLinks
